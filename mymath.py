@@ -7,6 +7,7 @@ def timer(func):
         print(f"time elapsed : {end-start}")
         return result
     return wrap
+
 # def factorial(num) -> int :
 #     """
 #     factorial by repetition
