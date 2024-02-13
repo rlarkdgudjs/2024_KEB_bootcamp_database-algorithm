@@ -18,35 +18,33 @@ def print_nodes(start):
 
 
 def count(start):
-    global count ,remainder
     current = start
     count = 0
-    if current.data % 2 == 0:
-        count = count + 1
+    zero_count = 0
+    if current.data < 0:
+        count += 1
+    elif current.data == 0:
+        zero_count += 1
     while current.link != start:
         current = current.link
-        if current.data % 2 == 0:
-            count = count + 1
-    if count > 7-count:
-        remainder = 0
-    else:
-        remainder = 1
-
+        if current.data < 0:
+            count += 1
+        elif current.data == 0:
+            zero_count += 1
+    print(f'양수 -> {7-count-zero_count} 음수 -> {count-zero_count} 0 -> {zero_count}')
 def temp(start):
     global current
     current = start
-    if current.data % 2 == remainder:
-        current.data = -current.data
+    current.data = -current.data
     while current.link != start:
         current = current.link
-        if current.data % 2 == remainder:
-            current.data = -current.data
+        current.data = -current.data
 
 
 head, current, pre = None, None, None
 data_array = []
 for i in range(7):
-    data_array.append(random.randint(1, 100))
+    data_array.append(random.randint(-100, 100))
 
 if __name__ == "__main__":
 
