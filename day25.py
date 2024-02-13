@@ -1,68 +1,81 @@
-import random
-
-class Node:
-    def __init__ (self):
-        self.data = None
-        self.link = None
+import webbrowser
+import time
 
 
-def print_nodes(start):
-    current = start
-    if current == None:
-        return
-    print(current.data, end = ' ')
-    while current.link != start:
-        current = current.link
-        print(current.data, end = ' ')
-    print()
+# def is_stack_full():
+#     global size, stack, top
+#     return top >= size - 1
+#
+#
+# def is_stack_empty():
+#     global size, stack, top
+#     return top == -1
+#
+#
+# def push(data):
+#     global size, stack, top
+#     if is_stack_full():
+#         print("Stack is Full")
+#         return
+#     top += 1
+#     stack[top] = data
+#
+#
+# def pop():
+#     global size, stack, top
+#     if is_stack_empty():
+#         print("Stack is Empty")
+#         return None
+#     data = stack[top]
+#     stack[top] = None
+#     top -= 1
+#     return data
+#
+#
+# def peek():
+#     global size, stack, top
+#     if is_stack_empty():
+#         print("Stack is Empty")
+#         return None
+#     data = stack[top]
+#     return data
 
 
-def count(start):
-    current = start
-    count = 0
-    zero_count = 0
-    if current.data < 0:
-        count += 1
-    elif current.data == 0:
-        zero_count += 1
-    while current.link != start:
-        current = current.link
-        if current.data < 0:
-            count += 1
-        elif current.data == 0:
-            zero_count += 1
-    print(f'양수 -> {7-count-zero_count} 음수 -> {count-zero_count} 0 -> {zero_count}')
-def temp(start):
-    global current
-    current = start
-    current.data = -current.data
-    while current.link != start:
-        current = current.link
-        current.data = -current.data
+# def check_bracket(expr):
+#     for ch in expr:
+#         if ch in '([{<':
+#             push(ch)
+#         elif ch in ')]}>':
+#             out = pop()
+#             if ch == ')' and out == '(':
+#                 pass
+#             elif ch == ']' and out == '[':
+#                 pass
+#             elif ch == '}' and out == '{':
+#                 pass
+#             elif ch == '>' and out == '<':
+#                 pass
+#             else:
+#                 return False
+#         else:
+#             pass
+#     return is_stack_empty()
+def check_bracket(expr):
+    stack = list()
+    table = {')': '(', ']': '[', '}': '{', '>': '<'}
+    for char in expr:
+        if char not in table:
+            stack.append(char)
+        elif not stack or table[char] != stack.pop():
+            return False
+        else:
+            pass
+    return len(stack) == 0
 
-
-head, current, pre = None, None, None
-data_array = []
-for i in range(7):
-    data_array.append(random.randint(-100, 100))
+# size = 20
+# stack = [None for _ in range(size)]
+# top = -1
 
 if __name__ == "__main__":
-
-    node = Node()
-    node.data = data_array[0]
-    head = node
-    node.link = head
-
-    for data in data_array[1:]:
-        pre = node
-        node = Node()
-        node.data = data
-        pre.link = node
-        node.link = head
-
-    print_nodes(head)
-
-    count(head)
-    temp(head)
-
-    print_nodes(head)
+    expression = input()
+    print(check_bracket(expression))
